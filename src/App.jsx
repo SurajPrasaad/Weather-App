@@ -11,12 +11,14 @@ import {
   mapDailyData,
   calculateStats,
 } from "./utils/utils";
+import CityNotFound from "./components/CityNotFound";
 
 function App() {
   const [unitTemp, setUnitTemp] = useState("C");
   const [unitWind, setUnitWind] = useState("km/h");
   const [unitPrecip, setUnitPrecip] = useState("mm");
   const [city, setCity] = useState("Surat");
+  const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [weather, setWeather] = useState(null);
   const [hourly, setHourly] = useState([]);
@@ -38,7 +40,11 @@ function App() {
       );
       const geoData = await geoRes.json();
       if (!geoData.results || geoData.results.length === 0) {
-        alert("City not found");
+        console.log(geoRes);
+        //TODO::City not found
+        setError("City not found");
+        setWeather(null);
+        setDaily([]);
         setLoading(false);
         return;
       }
@@ -74,7 +80,9 @@ function App() {
         )
       );
 
-      setWeatherDescription(getWeatherIcon(weatherData.current_weather.weathercode).desc);
+      setWeatherDescription(
+        getWeatherIcon(weatherData.current_weather.weathercode).desc
+      );
       setCity(cityName);
     } catch (err) {
       console.error(err);
@@ -135,8 +143,9 @@ function App() {
           </div>
         </div>
       )}
-
       {!loading && daily.length > 0 && <DailyForecast daily={daily} />}
+
+      {error && <p className="text-2xl text-center text-amber-50">{error}</p>}
     </div>
   );
 }
