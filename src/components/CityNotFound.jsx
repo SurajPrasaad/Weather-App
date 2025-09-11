@@ -1,9 +1,9 @@
-function CityNotFound(){
+function CityNotFound({error}){
 return(
     <>
         <div className="flex justify-center">
-            <h3>City Not Found</h3>
-            {/* {city && <p>`${city}` does not exist</p>} */}
+            <h3>${error}</h3>
+           
         </div>
     </>
 )

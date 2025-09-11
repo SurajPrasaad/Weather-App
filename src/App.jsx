@@ -34,6 +34,7 @@ function App() {
 
   const fetchWeather = async (cityName) => {
     setLoading(true);
+    setError("");
     try {
       const geoRes = await fetch(
         `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}`
@@ -41,7 +42,6 @@ function App() {
       const geoData = await geoRes.json();
       if (!geoData.results || geoData.results.length === 0) {
         console.log(geoRes);
-        //TODO::City not found
         setError("City not found");
         setWeather(null);
         setDaily([]);
