@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header";
-import SearchBar from "./components/SerachBar";
+import SearchBar from "./components/SearchBar";
 import WeatherCard from "./components/WeatherCard";
 import HourlyForecast from "./components/HourlyForecast";
 import DailyForecast from "./components/DailyForecast";
@@ -11,7 +11,7 @@ import {
   mapDailyData,
   calculateStats,
 } from "./utils/utils";
-import CityNotFound from "./components/CityNotFound";
+
 
 function App() {
   const [unitTemp, setUnitTemp] = useState("C");
